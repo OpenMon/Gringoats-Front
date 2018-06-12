@@ -2,21 +2,28 @@ import React, { Component } from "react";
 
 import "./home.css";
 import PC from "../../components/pc/PC";
+import {getPC} from "../../utils/apiUtils";
 
 export default class Home extends Component {
 
-    /*componentDidMount() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            "pcs": []
+        };
+    }
+
+    componentDidMount() {
         getPC().then((res) => {
             console.log(res);
             this.setState = {
                 "pcs": res
             }
         });
-    }*/
+    }
 
     render() {
-        const pcs = [{"id":0,"generation":1,"boxes":3}, {"id":1,"generation":1,"boxes":5}];
-        const list = pcs.map((pc) =>
+        const list = this.state.pcs.map((pc) =>
             <PC key={pc.id} generation={pc.generation} boxes={pc.boxes} />
         );
         return (
