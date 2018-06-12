@@ -63,41 +63,84 @@ export function callApi(
   };
 }
 
+function call(url, options) {
+    // performs api calls sending the required authentication headers
+    const headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+    };
+
+    // Setting Authorization header
+    // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
+
+    return fetch(url, {
+        headers,
+        mode: "cors",
+        ...options
+    })
+        .then(_checkStatus)
+        .then((response) => response.json());
+}
+
+function _checkStatus(response) {
+    // raises an error in case response status is not a success
+    if (response.status >= 200 && response.status < 400) { // Success status lies between 200 to 300
+        return response;
+    } else {
+        console.log(response);
+        let error = new Error(response.statusText);
+        // error.response = response
+        throw error;
+    }
+}
+
+let address = "http://localhost:8080;";
+
+export function getPC() {
+    let uri = "/pc";
+    return call("http://localhost:8080/pc", {
+        method: "GET",
+    }).then((res) => {
+        return Promise.resolve(res);
+    });
+}
+
 export const ID_TOKEN = "id_token";
 
 export function setIdToken(idToken) {
-  localStorage.setItem(ID_TOKEN, idToken);
+    localStorage.setItem(ID_TOKEN, idToken);
 }
 
 export function removeIdToken() {
-  localStorage.removeItem(ID_TOKEN);
+    localStorage.removeItem(ID_TOKEN);
 }
 
 export function loadIdToken() {
-  return localStorage.getItem(ID_TOKEN);
+    return localStorage.getItem(ID_TOKEN);
 }
 
 export function decodeUserProfile(idToken) {
-  try {
-    return jwt_decode(idToken);
-  } catch (err) {
-    return null;
-  }
+    try {
+        return jwt_decode(idToken);
+    } catch (err) {
+        return null;
+    }
 }
 
 export function loadUserProfile() {
-  try {
-    const idToken = localStorage.getItem(ID_TOKEN);
-    const userProfile = jwt_decode(idToken);
-    const now = new Date().getTime() / 1000; // Date().getTime() returns milliseconds.
-    // So divide by 1000 to get seconds
-    if (now > userProfile.exp) {
-      // user profile has expired.
-      removeIdToken();
-      return null;
+    try {
+        const idToken = localStorage.getItem(ID_TOKEN);
+        const userProfile = jwt_decode(idToken);
+        const now = new Date().getTime() / 1000; // Date().getTime() returns milliseconds.
+        // So divide by 1000 to get seconds
+        if (now > userProfile.exp) {
+            // user profile has expired.
+            removeIdToken();
+            return null;
+        }
+        return userProfile;
+    } catch (err) {
+        return null;
     }
-    return userProfile;
-  } catch (err) {
-    return null;
-  }
 }
