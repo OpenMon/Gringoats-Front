@@ -67,8 +67,7 @@ function call(url, options) {
     // performs api calls sending the required authentication headers
     const headers = {
         "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
+        "Content-Type": "application/json"
     };
 
     // Setting Authorization header
@@ -76,7 +75,6 @@ function call(url, options) {
 
     return fetch(url, {
         headers,
-        mode: "cors",
         ...options
     })
         .then(_checkStatus)
