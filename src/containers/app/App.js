@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 // would require configuring the server. So we will use HashRouter here.
 // Please change to BrowserRouter if you have your own backend server.
 ///////////////////////////////////////////////////////////////////////////
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { connect } from "react-redux";
 import Login from "../login/Login";
@@ -28,7 +28,7 @@ class App extends Component {
     const { user } = this.props;
     const isAuthenticated = true && user;
     return (
-      <Router>
+      <BrowserRouter>
         <div>
           <div className="container">
             <div className="appContent">
@@ -41,7 +41,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }

@@ -24,7 +24,6 @@
     "socket.io",
     "PWA",
     "Progressive Web Apps"
-
   ],
   "author": "twitter.com/_cloudmu (http://github.com/cloudmu)",
   "license": "MIT",
@@ -36,6 +35,8 @@
     "react-scripts": "1.0.17"
   },
   "dependencies": {
+    "@material-ui/core": "^1.2.1",
+    "@material-ui/icons": "^1.1.0",
     "bootstrap": "^4.0.0-beta.2",
     "classnames": "^2.2.5",
     "font-awesome": "^4.7.0",
@@ -45,8 +46,8 @@
     "lodash": "^4.17.4",
     "popper.js": "^1.12.6",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-virtualized": "^9.12.0",
