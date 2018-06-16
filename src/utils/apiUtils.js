@@ -144,7 +144,6 @@ let addressSprites = "http://www.pokestadium.com/sprites";
 
 export function getSprite(pokemon) {
     let uriShiny = "";
-    console.log(pokemon);
     if (pokemon.shiny) {
         if (pokemon.generation === 1) {
             uriShiny = "/gray";

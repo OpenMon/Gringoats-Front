@@ -44,7 +44,7 @@ export default class Slot extends Component {
 
     render() {
         return (
-            <div className="slot">
+            <div className="slot" onClick={this.props.onClick}>
                 {this.props.slot !== null &&
                     <span
                         id={this.iconId}

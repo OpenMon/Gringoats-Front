@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import {getSprite} from "../../utils/apiUtils";
+import "./pokesprite.css";
+import Badge from "@material-ui/core/es/Badge/Badge";
 
-export default class Box extends Component {
+export default class PokeSprite extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,16 +12,11 @@ export default class Box extends Component {
         };
     }
 
-    componentDidMount() {
-        let uri = getSprite(this.props.pokemon);
-        this.setState ({
-            link: uri
-        })
-    }
-
     render() {
         return (
-            <img src={this.state.link} alt={this.state.name}/>
+            <Badge badgeContent={this.props.pokemon.level} color="primary">
+                <img src={getSprite(this.props.pokemon)}/>
+            </Badge>
         )
     }
 }

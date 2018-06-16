@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import {getSlots} from "../../utils/apiUtils";
-import PokeSprite from "../PokeSprite/PokeSprite";
+import LinearProgress from "@material-ui/core/es/LinearProgress/LinearProgress";
 import "./visualization.css";
-import XPBar from "./XPBar";
 
 export default class Visualization extends Component {
     constructor(props) {
@@ -14,11 +12,11 @@ export default class Visualization extends Component {
 
     render() {
         return (
-            <div className="visualization">
-                <PokeSprite pokemon={this.props.pokemon}/>
-                <XPBar pokemon={this.props.pokemon}/>
-            </div>
+            <LinearProgress
+                className="xpbar"
+                variant="determinate"
+                value={this.props.pokemon.level}
+            />
         )
     }
-
 }

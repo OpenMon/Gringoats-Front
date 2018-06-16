@@ -30,12 +30,20 @@ export default class Box extends Component {
         getSlots(this.props.idPC, this.props.id).then((res) => {
             this.setState ({
                 slots: res.slots,
-                idSlot: res.id
+                idSlot: 0
             })
         });
     }
 
+    handleClick(slot, e) {
+        e.preventDefault();
+        this.setState({
+            idSlot: slot
+        });
+    }
+
     render() {
+
         let slots = [];
         for (let i = 0; i < this.state.slots.length; i++) {
             let id;
@@ -46,7 +54,11 @@ export default class Box extends Component {
             }
             slots.push(
                 (<GridListTile key={i} cols={1}>
-                    <Slot key={i} number={i} idPC={this.props.idPC} idBox={this.props.id} slot={this.state.slots[i]}/>
+                    <Slot
+                        key={i} number={i} idPC={this.props.idPC} idBox={this.props.id}
+                        slot={this.state.slots[i]}
+                        onClick={this.handleClick.bind(this, i)}
+                    />
                 </GridListTile>)
             );
         }
@@ -62,9 +74,9 @@ export default class Box extends Component {
                     </Grid>
                     <Grid item xs={12} lg={6}>
                         {
-                            this.state.slots[0] !== undefined
-                            && this.state.slots[0] !== null
-                            && <Visualization pokemon={this.state.slots[0]}/>
+                            this.state.slots[this.state.idSlot] !== undefined
+                            && this.state.slots[this.state.idSlot] !== null
+                            && <Visualization pokemon={this.state.slots[this.state.idSlot]}/>
                         }
                     </Grid>
                 </Grid>

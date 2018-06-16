@@ -26,7 +26,6 @@ class PC extends Component {
     }
 
     componentDidMount() {
-        console.log("getBoxes : " + this.props.id);
         getBoxes(this.props.id).then((res) => {
             this.setState ({
                 boxes: res,
