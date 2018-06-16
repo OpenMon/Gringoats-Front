@@ -1,5 +1,6 @@
 import "isomorphic-fetch";
 import jwt_decode from "jwt-decode";
+import {enNames} from "./enNames";
 
 export function checkStatus(response) {
   if (!response.ok) {
@@ -93,15 +94,67 @@ function _checkStatus(response) {
     }
 }
 
-let address = "http://localhost:8080;";
+let address = "http://localhost:8080";
 
 export function getPC() {
-    let uri = "/pc";
-    return call("http://localhost:8080/pc", {
+    return call(`${address}/pc`, {
         method: "GET",
     }).then((res) => {
         return Promise.resolve(res);
     });
+}
+
+export function getBoxes(idPC) {
+    return call(`${address}/pc/${idPC}/box`, {
+        method: "GET",
+    }).then((res) => {
+        return Promise.resolve(res);
+    });
+}
+
+export function getSlots(idPC, idBox) {
+    return call(`${address}/pc/${idPC}/box/${idBox}`, {
+        method: "GET",
+    }).then((res) => {
+        return Promise.resolve(res);
+    });
+}
+
+let addressNames = "https://github.com/sindresorhus/pokemon/blob/master/data";
+
+export function getNames(lang) {
+    return call(`${addressNames}/${lang}.json`, {
+        method: "GET",
+    }).then((res) => {
+        return Promise.resolve(res);
+    });
+}
+
+const generations = [
+  "green",
+  "silver",
+  "emerald",
+  "diamond-pearl",
+  "black-white",
+  "xy"
+];
+
+// http://www.pokestadium.com/sprites/silver/shiny/charizard.png
+let addressSprites = "http://www.pokestadium.com/sprites";
+
+export function getSprite(pokemon) {
+    let uriShiny = "";
+    console.log(pokemon);
+    if (pokemon.shiny) {
+        if (pokemon.generation === 1) {
+            uriShiny = "/gray";
+        } else {
+            uriShiny = "/shiny";
+        }
+    }
+    let name = enNames[pokemon.id - 1].toLowerCase();
+    return `${addressSprites}/${generations[pokemon.generation - 1]}${uriShiny}/${name}.png`;
+
 }
 
 export const ID_TOKEN = "id_token";

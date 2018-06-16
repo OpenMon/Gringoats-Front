@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
-
+import {getBoxes} from "../../utils/apiUtils";
 import AppBar from "@material-ui/core/es/AppBar/AppBar";
 import Tabs from "@material-ui/core/es/Tabs/Tabs";
-import { withStyles } from '@material-ui/core/styles';
-import PC from "../../components/pc/PC";
+import PropTypes from "prop-types";
+import {withStyles} from "@material-ui/core/styles/index";
 import Tab from "@material-ui/core/es/Tab/Tab";
-
-import "./home.css";
-import {getPC} from "../../utils/apiUtils";
+import Box from "../box/Box";
 
 const styles = theme => ({
     root: {
@@ -18,58 +15,60 @@ const styles = theme => ({
     },
 });
 
-class Home extends Component {
+class PC extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            pcs: [],
-            idPC: 0
+            boxes: [],
+            idBox: 0
         };
     }
 
     componentDidMount() {
-        getPC().then((res) => {
+        console.log("getBoxes : " + this.props.id);
+        getBoxes(this.props.id).then((res) => {
             this.setState ({
-                pcs: res,
-                idPC: res[0].id
+                boxes: res,
+                idBox: res[0].id
             })
         });
     }
 
-    handleChange = (event, idPC) => {
-        this.setState({ idPC });
+    handleChange = (event, idBox) => {
+        this.setState({ idBox });
     };
 
+
     render() {
-        const pcs = this.state.pcs.map((pc) =>
-            <Tab key={pc.id} label={pc.name} />
+        const boxes = this.state.boxes.map((box) =>
+            <Tab key={box.id} label={box.name} />
         );
         return (
             <div>
-
                 <AppBar position="static" color="default">
                     <Tabs
-                        value={this.state.idPC}
+                        value={this.state.idBox}
                         onChange={this.handleChange}
                         indicatorColor="primary"
                         textColor="primary"
                         scrollable
                         scrollButtons="auto"
                     >
-                        {pcs}
+                        {boxes}
                     </Tabs>
                 </AppBar>
-                {this.state.pcs.map((pc) =>
-                    this.state.idPC === pc.id && <PC key={pc.id} id={pc.id}/>
+                {this.state.boxes.map((box) =>
+                    this.state.idBox === box.id && <Box key={box.id} idPC={this.props.id} id={box.id}/>
                 )}
+
             </div>
         );
     }
 }
 
-Home.propTypes = {
+PC.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Home)
+export default withStyles(styles)(PC)
