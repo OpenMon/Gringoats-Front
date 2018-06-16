@@ -131,8 +131,8 @@ export function getNames(lang) {
 }
 
 const generations = [
-  "green",
-  "silver",
+  "yellow",
+  "crystal",
   "emerald",
   "diamond-pearl",
   "black-white",

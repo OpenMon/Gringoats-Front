@@ -9,6 +9,7 @@ import Tab from "@material-ui/core/es/Tab/Tab";
 
 import "./home.css";
 import {getPC} from "../../utils/apiUtils";
+import Badge from "@material-ui/core/es/Badge/Badge";
 
 const styles = theme => ({
     root: {
@@ -43,7 +44,10 @@ class Home extends Component {
 
     render() {
         const pcs = this.state.pcs.map((pc) =>
-            <Tab key={pc.id} label={pc.name} />
+            <Tab key={pc.id} label={
+                <Badge badgeContent={pc.generation} color="primary">
+                    {pc.name}
+                </Badge>} />
         );
         return (
             <div>
