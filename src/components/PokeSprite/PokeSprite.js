@@ -15,7 +15,7 @@ export default class PokeSprite extends Component {
 
     render() {
         return (
-            <Badge badgeContent={this.props.pokemon.level} color="primary">
+            <Badge badgeContent={this.props.pokemon.level} color="primary" className="level-bubble">
                 <Avatar src={getSprite(this.props.pokemon)} className="sprite-pkm"/>
             </Badge>
         )

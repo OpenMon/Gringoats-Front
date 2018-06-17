@@ -23,8 +23,12 @@ export default class Slot extends Component {
                     enName: res[this.props.id - 1]
                 })
             });*/
+            let name = "Unknown";
+            if(this.props.slot.id > 0) {
+                name = enNames[this.props.slot.id - 1];
+            }
             this.setState ({
-                enName: enNames[this.props.slot.id - 1]
+                enName: name
             });
         }
     }

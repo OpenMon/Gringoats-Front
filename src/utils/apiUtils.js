@@ -132,17 +132,29 @@ export function getNames(lang) {
 
 const generations = [
   "yellow",
-  "crystal",
-  "emerald",
+  "crystal/animated",
+  "emerald/animated",
   "diamond-pearl",
-  "black-white",
+  "black-white/animated",
   "xy"
+];
+
+const imgType = [
+    "png",
+    "gif",
+    "gif",
+    "png",
+    "gif",
+    "gif"
 ];
 
 // http://www.pokestadium.com/sprites/silver/shiny/charizard.png
 let addressSprites = "http://www.pokestadium.com/sprites";
 
 export function getSprite(pokemon) {
+    if(pokemon["missing-no"]) {
+        return "https://cdn.bulbagarden.net/upload/9/98/Missingno_RB.png"
+    }
     let uriShiny = "";
     if (pokemon.shiny) {
         if (pokemon.generation === 1) {
@@ -152,7 +164,7 @@ export function getSprite(pokemon) {
         }
     }
     let name = enNames[pokemon.id - 1].toLowerCase();
-    return `${addressSprites}/${generations[pokemon.generation - 1]}${uriShiny}/${name}.png`;
+    return `${addressSprites}/${generations[pokemon.generation - 1]}${uriShiny}/${name}.${imgType[pokemon.generation - 1]}`;
 
 }
 
