@@ -28,8 +28,9 @@ export default class Visualization extends Component {
         for (var i=0; i<6; i++) {
             row.push(<TableRow key={i}>
                 <TableCell>{stat[i]}</TableCell>
+                <TableCell>{this.props.pokemon.stats[i]}</TableCell>
                 <TableCell>{this.props.pokemon.ev[i]}</TableCell>
-                <TableCell>0</TableCell>
+                <TableCell>{this.props.pokemon.iv[i]}</TableCell>
             </TableRow>);
         }
 
@@ -38,6 +39,7 @@ export default class Visualization extends Component {
                 <Table component="nav">
                     <TableHead>
                         <TableCell>Name</TableCell>
+                        <TableCell>Stat</TableCell>
                         <TableCell>EV</TableCell>
                         <TableCell>IV</TableCell>
                     </TableHead>
