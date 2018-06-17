@@ -1,6 +1,7 @@
 import "isomorphic-fetch";
 import jwt_decode from "jwt-decode";
 import {enNames} from "./enNames";
+import {enForms} from "./enForms";
 
 export function checkStatus(response) {
   if (!response.ok) {
@@ -164,7 +165,19 @@ export function getSprite(pokemon) {
         }
     }
     let name = enNames[pokemon.id - 1].toLowerCase();
-    return `${addressSprites}/${generations[pokemon.generation - 1]}${uriShiny}/${name}.${imgType[pokemon.generation - 1]}`;
+    let type = imgType[pokemon.generation - 1];
+    let generation = generations[pokemon.generation - 1];
+    if(enForms[pokemon.id] !== undefined) {
+        let form = enForms[pokemon.id][pokemon.form];
+        if(form !== undefined && form !== "") {
+            name += "-"+form;
+        }
+        if(pokemon.generation == 2) {
+            generation = "crystal";
+            type = "png";
+        }
+    }
+    return `${addressSprites}/${generation}${uriShiny}/${name}.${type}`;
 
 }
 

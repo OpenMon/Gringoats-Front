@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {getNames} from "../../utils/apiUtils";
 import {enNames} from "../../utils/enNames";
+import {enForms} from "../../utils/enForms";
 
 import "./slot.css";
 import GridListTile from "@material-ui/core/es/GridListTile/GridListTile";
@@ -42,6 +43,12 @@ export default class Slot extends Component {
         let className = `pkspr pkmn-${this.state.enName.toLowerCase()}`;
         if (this.props.slot.shiny) {
             className += " color-shiny";
+        }
+        if (enForms[this.props.slot.id] !== undefined) {
+            let form = enForms[this.props.slot.id][this.props.slot.form];
+            if(form !== "") {
+                className += " form-"+form;
+            }
         }
         return className;
     }
